@@ -2,6 +2,10 @@
 #include <GLFW/glfw3.h>
 #include <stdio.h>
 #include <GL/gl.h>
+#include "vmath.h"
+
+// Remove this to draw only a single cube!
+// #define MANY_CUBES
 
 // keep track of window size for things like the viewport and the mouse cursor
 int g_gl_width = 640;
@@ -170,10 +174,9 @@ int main() {
   glEnableVertexAttribArray(0);
 
   // 1: vertex color
+
   static const GLfloat green[] = { 0.0f, 0.25f, 0.0f, 1.0f };
   static const GLfloat one = 1.0f;
-
-  glViewport(0, 0, g_gl_width, g_gl_height);
   glClearBufferfv(GL_COLOR, 0, green);
   glClearBufferfv(GL_DEPTH, 0, &one);
 
@@ -203,17 +206,34 @@ int main() {
 
     // ???::mat4 mv_matrix, proj_matrix;
     // mv_matrix = [...]
-
     //
     // transfer mv_matrix uniform to shaders:
     // glUniformMatrix4fv [...]
+
+      int i;
+      for (i = 0; i < 24; i++)
+      {
+          vmath::mat4 mv_matrix = vmath::translate(0.0f, 0.0f, -6.0f) *
+                                  vmath::rotate((float)currentTime * 45.0f, 0.0f, 1.0f, 0.0f) *
+                                  vmath::rotate((float)currentTime * 21.0f, 1.0f, 0.0f, 0.0f) *
+                                  vmath::translate(sinf(2.1f * f) * 2.0f,
+                                                   cosf(1.7f * f) * 2.0f,
+                                                   sinf(1.3f * f) * cosf(1.5f * f) * 2.0f);
+          glUniformMatrix4fv(mv_location, 1, GL_FALSE, mv_matrix);
+          glDrawArrays(GL_TRIANGLES, 0, 36);
+      }
 
     // proj_matrix = [...]
     //
     // transfer proj_matrix uniform to shaders:
     // glUniformMatrix4fv [...]
 
+    float aspect = (float)g_gl_width / (float)g_gl_height;
+    vmath::mat4 proj_matrix = vmath::perspective(50.0f, aspect, 0.1f, 1000.0f);
+    glUniformMatrix4fv(proj_location, 1, GL_FALSE, proj_matrix);
+
     // glDrawArrays [...]
+    glDrawArrays(GL_TRIANGLES, 0, 36);
 
     // update other events like input handling
     glfwPollEvents();
