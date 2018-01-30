@@ -306,3 +306,102 @@ Statistics:
     Film::MergeTile()                                                0.00% (   0:00:00.00)
 
 
+
+#####################################################################################################################################################################
+
+
+lte-orb-roughglass original kdtree
+
+
+
+angel@angel-VirtualBox:~/igm/pbrt-v3/build$ ./pbrt /home/angel/Escritorio/lte-orb_kdtree/lte-orb-roughglass.pbrt 
+pbrt version 3 (built Nov 20 2017 at 19:53:06) [Detected 4 cores]
+Copyright (c)1998-2016 Matt Pharr, Greg Humphreys, and Wenzel Jakob.
+The source code to pbrt (but *not* the book contents) is covered by the BSD License.
+See the file LICENSE.txt for the conditions of the license.
+Rendering: [+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++]  (64350.5s)           
+Statistics:
+  Integrator
+    Camera rays traced                                         5242880000
+    Path length                                                     2.718 avg [range 0 - 10]
+    Zero-radiance paths                         8702171508 /  15320394733 (56.80%)
+  Intersections
+    Regular ray intersection tests                            19755623506
+    Shadow ray intersection tests                             12659643674
+    Ray-triangle intersection tests            35615319625 / 844210120869 (4.22%)
+  Memory
+    Film pixels                                                     19.53 MiB
+    Texture MIP maps                                                16.00 MiB
+    Triangle meshes                                                 50.52 MiB
+  Scene
+    AreaLights                                                          2
+    Lights                                                              2
+    Materials created                                                   8
+    Shapes created                                                 597810
+    Triangles per triangle mesh                     597810 /            7 (85401.43x)
+  SpatialLightDistribution
+    Distributions created                                            5318
+    Hash probes per lookup                                          1.000 avg [range 1 - 2]
+    Lookups per distribution                   15320394733 /         5318 (2880856.47x)
+  Texture
+    EWA lookups                                                5201972174
+  Profile
+    Integrator::Render()                                            100.00% (  17:52:34.68)
+      Camera::GenerateRay[Differential]()                            0.29% (   0:03:06.75)
+      Film::AddSample()                                              0.17% (   0:01:51.73)
+      Film::MergeTile()                                              0.00% (   0:00:00.00)
+      Sampler::GetSample[12]D()                                      1.02% (   0:10:54.22)
+      Sampler::StartPixelSample()                                    0.00% (   0:00:00.05)
+      SamplerIntegrator::Li()                                       97.87% (  17:29:45.07)
+        Accelerator::Intersect()                                    37.78% (   6:45:11.38)
+          Triangle::Intersect()                                     13.87% (   2:28:45.88)
+        BSDF::Sample_f()                                            12.69% (   2:16:06.87)
+        Direct lighting                                             42.76% (   7:38:41.61)
+          Accelerator::Intersect()                                   0.33% (   0:03:34.79)
+            Triangle::Intersect()                                    0.12% (   0:01:14.43)
+          Accelerator::IntersectP()                                 17.27% (   3:05:13.52)
+            Triangle::IntersectP()                                   4.81% (   0:51:37.42)
+          BSDF::PDF()                                                2.66% (   0:28:33.64)
+          BSDF::Sample_f()                                          13.21% (   2:21:42.82)
+          BSDF::f()                                                  4.12% (   0:44:13.50)
+          Light::Pdf()                                               0.98% (   0:10:30.29)
+            Triangle::Intersect()                                    0.43% (   0:04:34.68)
+          Light::Sample_*()                                          0.83% (   0:08:50.97)
+          Sampler::GetSample[12]D()                                  1.36% (   0:14:37.61)
+        Material::ComputeScatteringFunctions()                       1.95% (   0:20:55.37)
+          MIPMap::Lookup() (EWA)                                     0.88% (   0:09:25.67)
+        Sampler::GetSample[12]D()                                    0.63% (   0:06:45.63)
+        SpatialLightDistribution lookup                              0.49% (   0:05:13.60)
+          SpatialLightDistribution creation                          0.00% (   0:00:00.05)
+            Light::Sample_*()                                        0.00% (   0:00:00.02)
+    Scene parsing and creation                                       0.00% (   0:00:01.95)
+      Acceleration structure creation                                0.00% (   0:00:01.55)
+      Texture loading                                                0.00% (   0:00:00.02)
+        MIP map generation                                           0.00% (   0:00:00.00)
+  Profile (flattened)
+    BSDF::Sample_f()                                                25.90% (   4:37:49.70)
+    Accelerator::Intersect()                                        24.12% (   4:18:45.86)
+    Triangle::Intersect()                                           14.41% (   2:34:35.00)
+    Accelerator::IntersectP()                                       12.46% (   2:13:36.09)
+    Triangle::IntersectP()                                           4.81% (   0:51:37.42)
+    BSDF::f()                                                        4.12% (   0:44:13.50)
+    Sampler::GetSample[12]D()                                        3.01% (   0:32:17.47)
+    BSDF::PDF()                                                      2.66% (   0:28:33.64)
+    Direct lighting                                                  2.00% (   0:21:24.42)
+    SamplerIntegrator::Li()                                          1.57% (   0:16:50.58)
+    Material::ComputeScatteringFunctions()                           1.07% (   0:11:29.70)
+    MIPMap::Lookup() (EWA)                                           0.88% (   0:09:25.67)
+    Light::Sample_*()                                                0.83% (   0:08:51.00)
+    Integrator::Render()                                             0.65% (   0:06:56.83)
+    Light::Pdf()                                                     0.55% (   0:05:55.61)
+    SpatialLightDistribution lookup                                  0.49% (   0:05:13.54)
+    Camera::GenerateRay[Differential]()                              0.29% (   0:03:06.75)
+    Film::AddSample()                                                0.17% (   0:01:51.73)
+    Acceleration structure creation                                  0.00% (   0:00:01.55)
+    Scene parsing and creation                                       0.00% (   0:00:00.37)
+    Sampler::StartPixelSample()                                      0.00% (   0:00:00.05)
+    SpatialLightDistribution creation                                0.00% (   0:00:00.02)
+    Texture loading                                                  0.00% (   0:00:00.01)
+    MIP map generation                                               0.00% (   0:00:00.00)
+    Film::MergeTile()                                                0.00% (   0:00:00.00)
+
