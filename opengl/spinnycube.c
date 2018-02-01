@@ -205,10 +205,7 @@ int main() {
     //   sb7's vmath libraries
 
     // ???::mat4 mv_matrix, proj_matrix;
-    // mv_matrix = [...]
-    //
     // transfer mv_matrix uniform to shaders:
-    // glUniformMatrix4fv [...]
 
       int i;
       for (i = 0; i < 24; i++)
@@ -223,16 +220,13 @@ int main() {
           glDrawArrays(GL_TRIANGLES, 0, 36);
       }
 
-    // proj_matrix = [...]
-    //
-    // transfer proj_matrix uniform to shaders:
-    // glUniformMatrix4fv [...]
 
+    // transfer proj_matrix uniform to shaders:
     float aspect = (float)g_gl_width / (float)g_gl_height;
     vmath::mat4 proj_matrix = vmath::perspective(50.0f, aspect, 0.1f, 1000.0f);
     glUniformMatrix4fv(proj_location, 1, GL_FALSE, proj_matrix);
 
-    // glDrawArrays [...]
+
     glDrawArrays(GL_TRIANGLES, 0, 36);
 
     // update other events like input handling
