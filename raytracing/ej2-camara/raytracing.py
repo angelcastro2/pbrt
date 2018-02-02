@@ -162,7 +162,7 @@ col = np.zeros(3)  # Current color.
 #Si se pone un parametro saca la cam cenital, si no la original
 if(len(sys.argv) > 1):
     # Camara alternativa
-    O = np.array([3., 2.9, -1.])  # Camera.
+    O = np.array([3., 4.9, -1.])  # Camera.
     Q = np.array([0., 0., 2.])  # Camera pointing to.
 else:
     O = np.array([0., 0.35, -1.])  # Camera.
@@ -173,6 +173,9 @@ img = np.zeros((h, w, 3))
 r = float(w) / h
 # Screen coordinates: x0, y0, x1, y1.
 S = (-1., -1. / r + .25, 1., 1. / r + .25)
+
+if(len(sys.argv) > 1):
+    S = (-1., -1. / r + 1.25, 1., 1. / r + .65)
 
 # Loop through all pixels.
 for i, x in enumerate(np.linspace(S[0], S[2], w)):
