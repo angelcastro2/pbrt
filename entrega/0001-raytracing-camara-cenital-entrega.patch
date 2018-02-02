@@ -1,0 +1,52 @@
+From 49a2ba8e238a37676d76d3f544a5a16dcdc5dad6 Mon Sep 17 00:00:00 2001
+From: Angel Castro <angel.castro2@udc.es>
+Date: Fri, 2 Feb 2018 19:41:14 +0100
+Subject: [PATCH 1/1] raytracing camara cenital entrega
+
+---
+ entrega/raytracing.py | 16 ++++++++++++++--
+ 1 file changed, 14 insertions(+), 2 deletions(-)
+
+diff --git a/entrega/raytracing.py b/entrega/raytracing.py
+index 6c524d4..6912d47 100644
+--- a/entrega/raytracing.py
++++ b/entrega/raytracing.py
+@@ -2,6 +2,7 @@
+ 
+ import numpy as np
+ import matplotlib.pyplot as plt
++import sys
+ 
+ w = 400
+ h = 300
+@@ -157,14 +158,25 @@ specular_k = 50
+ 
+ depth_max = 5  # Maximum number of light reflections.
+ col = np.zeros(3)  # Current color.
+-O = np.array([0., 0.35, -1.])  # Camera.
+-Q = np.array([0., 0., 0.])  # Camera pointing to.
++
++#Si se pone un parametro saca la cam cenital, si no la original
++if(len(sys.argv) > 1):
++    # Camara alternativa
++    O = np.array([3., 4.9, -1.])  # Camera.
++    Q = np.array([0., 0., 2.])  # Camera pointing to.
++else:
++    O = np.array([0., 0.35, -1.])  # Camera.
++    Q = np.array([0., 0., 0.])  # Camera pointing to.
++
+ img = np.zeros((h, w, 3))
+ 
+ r = float(w) / h
+ # Screen coordinates: x0, y0, x1, y1.
+ S = (-1., -1. / r + .25, 1., 1. / r + .25)
+ 
++if(len(sys.argv) > 1):
++    S = (-1., -1. / r + 1.25, 1., 1. / r + .65)
++
+ # Loop through all pixels.
+ for i, x in enumerate(np.linspace(S[0], S[2], w)):
+     if i % 10 == 0:
+-- 
+2.7.4
+
